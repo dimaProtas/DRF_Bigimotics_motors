@@ -5,12 +5,13 @@ from rest_framework.authtoken import views
 from rest_framework.authtoken.views import obtain_auth_token
 from app.views import UserView, AuthMeView, UsersView, StatusView, LogoutView, LoginView, UserProfilePhotoView, \
     RefreshTokenView, FollowView, UnfollowView, UserRegistrationView, PostView, DeletePostView, AddLikeView, \
-    FriendsView, MessageListCreateView, UserMessageListView, SendMessageView, CommentsView
+    FriendsView, MessageListCreateView, UserMessageListView, SendMessageView, CommentsView, NewsAll
 from django.conf import settings
 from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'users', UsersView, basename='users')
+router.register(r'news', NewsAll, basename='news')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +37,7 @@ urlpatterns = [
     path('api/send-message/', SendMessageView.as_view(), name='send-message'),
     path('api/post/comments/', CommentsView.as_view({'get': 'list', 'post': 'create'})),
     path('api/comments/<int:pk>/delete/', CommentsView.as_view({'delete': 'delete_comment'}), name='delete-comment'),
+    # path('api/news_all/', NewsAll.as_view()),
 ]
 
 if settings.DEBUG:

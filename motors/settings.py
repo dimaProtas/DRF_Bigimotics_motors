@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -189,4 +190,21 @@ TOKEN_AUTHENTICATION = {
     'TOKEN_PAYLOAD_HANDLER':
     'app.custom_payload_handler'  # Укажите путь к вашему кастомному payload_handler
 }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("web_redis_1", 6379)],
+#         },
+#     },
+# }
+
+
+ASGI_APPLICATION = "motors.asgi.application"
 

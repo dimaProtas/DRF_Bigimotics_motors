@@ -160,13 +160,11 @@ class CommentModel(models.Model):
         verbose_name_plural = 'Комментарии'
 
 
-
 class MessageModel(models.Model):
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sent_messages')
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='received_messages')
     text = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
-
 
     class Meta:
         indexes = [

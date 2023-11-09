@@ -108,6 +108,11 @@ class AddLikeView(APIView):
             return Response({'error': 'Like not found'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class NewsAll(viewsets.ModelViewSet):
+    queryset = PostModel.objects.all()
+    serializer_class = PostSerializer
+
+
 class PostView(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
     def get_serializer_class(self):
@@ -475,7 +480,7 @@ class UserMessageListView(viewsets.ModelViewSet):
             (Q(sender=current_user) & Q(recipient=other_user)) |
             (Q(sender=other_user) & Q(recipient=current_user))
         ).order_by('-timestamp')
-        print(queryset, '---------- queryset')
+        # print(queryset, '---------- queryset')
         if queryset:
             return queryset
         else:
