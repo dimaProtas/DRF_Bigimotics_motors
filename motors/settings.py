@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'app.apps.AppConfig',
     'rest_framework.authtoken',
+    'audio_cloud',
+    'drf_yasg',
 
 ]
 

@@ -108,9 +108,18 @@ class AddLikeView(APIView):
             return Response({'error': 'Like not found'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class NewsAllLimitOffSetPagination(LimitOffsetPagination):
+    default_limit = 5
+
+
 class NewsAll(viewsets.ModelViewSet):
     queryset = PostModel.objects.all()
     serializer_class = PostSerializer
+    pagination_class = NewsAllLimitOffSetPagination
+
+    def get_queryset(self):
+        queryset = PostModel.objects.all().order_by('-created_at')
+        return queryset
 
 
 class PostView(viewsets.ModelViewSet):
@@ -277,7 +286,7 @@ class UserView(RetrieveUpdateAPIView):
 
 
 class UsersLimitOffSetPagination(LimitOffsetPagination):
-    default_limit = 5
+    default_limit = 10
 
 class UsersView(viewsets.ReadOnlyModelViewSet):
     queryset = UserAbstract.objects.all()

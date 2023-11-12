@@ -15,6 +15,8 @@ router.register(r'news', NewsAll, basename='news')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/music/', include('audio_cloud.urls')),
+    path('api/', include('app.urls')),
     path('api/user/<int:pk>/', UserView.as_view(), name='user-detail'),
     path('api/status/<int:pk>/', StatusView.as_view(), name='status-detail'),
     path('api/auth/login/', LoginView.as_view({'post': 'create'}), name='login'),
@@ -37,7 +39,7 @@ urlpatterns = [
     path('api/send-message/', SendMessageView.as_view(), name='send-message'),
     path('api/post/comments/', CommentsView.as_view({'get': 'list', 'post': 'create'})),
     path('api/comments/<int:pk>/delete/', CommentsView.as_view({'delete': 'delete_comment'}), name='delete-comment'),
-    # path('api/news_all/', NewsAll.as_view()),
+
 ]
 
 if settings.DEBUG:
